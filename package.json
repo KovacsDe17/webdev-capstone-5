@@ -4,5 +4,23 @@
     "ejs": "^3.1.9",
     "express": "^4.19.2",
     "pg": "^8.11.5"
-  }
+  },
+  "name": "capstone-project-book-notes",
+  "version": "1.0.0",
+  "description": "This is a capstone project for the Udemy Complete 2024 Web Development Bootcamp. It's purpose is to show what i have learned so far. The project uses Express.js, EJS, Axios, SQL and Bootstrap.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KovacsDe17/webdev-capstone-5.git"
+  },
+  "author": "Daniel Kovacs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KovacsDe17/webdev-capstone-5/issues"
+  },
+  "homepage": "https://github.com/KovacsDe17/webdev-capstone-5#readme"
 }
