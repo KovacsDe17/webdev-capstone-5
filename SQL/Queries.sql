@@ -2,7 +2,8 @@
 create table books (
     ISBN int not null primary key,
     title varchar(50) not null,
-    author varchar(50) not null
+    author varchar(50) not null,
+    description text not null
 );
 
 create table reviews (

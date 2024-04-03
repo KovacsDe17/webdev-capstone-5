@@ -1,5 +1,15 @@
 <%- include('partials/header.ejs') %>
 
-<h1>Hello world!</h1>
+<div id="booklist">
+    <% if(locals.bookreviews && bookreviews.length > 0){ %>
+        <% bookreviews.forEach(book => { %>
+            <a href="/book/<%= book.isbn %>"><h3><%= book.title %> - by <%= book.author %></h3></a>
+            <p>Date read: <%= book.readDate %></p>
+            <p>Rating: <%= book.rating %>/10</p>
+        <%  }); %>
+    <% } else { %>
+        <h2>No book reviews so far... :(</h2>
+    <% } %>
+</div>
 
 <%- include('partials/footer.ejs') %>
