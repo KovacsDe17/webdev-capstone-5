@@ -13,7 +13,8 @@
     <p><%= book.notes %></p>
     <hr>
     <form>
-        <input type="submit" value="Edit" formaction="/book/<%= book.isbn %>/edit"/>
+        <input type="submit" value="Edit" formaction="/book/<%= book.isbn %>/edit" formmethod="get"/>
+        <input type="submit" value="Delete" formaction="/delete/<%= book.isbn %>" formmethod="post"/>
     </form>
 
 <% } else { %>

@@ -66,10 +66,8 @@ app.post("/edit/:isbn", (req, res) => {
         };
 
         const index = bookReviews.findIndex((searchedBook) => searchedBook.isbn == book.isbn);
-        console.log("Changing book at index " + index + " from " + JSON.stringify(bookReviews[index]) + " to " + JSON.stringify(book) + "...");
         bookReviews[index] = book;
         console.log("Edited book review successfully!");
-        console.log("Now it is " + JSON.stringify(bookReviews[index]));
     } catch (error) {
         console.error("Error was caught during edit! " + error.stack);
     }
@@ -81,7 +79,7 @@ app.post("/delete/:isbn", (req, res) => {
     try {
         const isbn = req.params.isbn;
     
-        const index = bookReviews.findIndex((searchedBook) => searchedBook.isbn === isbn);
+        const index = bookReviews.findIndex((searchedBook) => searchedBook.isbn == isbn);
         bookReviews.splice(index, 1);
         console.log("Deleted book review successfully!");
     } catch (error) {
