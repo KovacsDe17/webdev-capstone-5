@@ -1,5 +1,23 @@
 <%- include('partials/header.ejs') %>
 
-<h2>You are looking at book with ISBN: <%= locals.book?book.isbn:"???" %></h2>
+<% if(locals.book && book != undefined){ %>
+
+    <h2><%= book.title %> - by <%= book.author %></h2>
+    <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg"/>
+    <p><%= book.description%></p>
+    <hr>
+    <p>Rating: <%= book.rating %>/10</p>
+    <p>Read date: <%= book.readDate %></p>
+    <hr>
+    <h3>Notes</h3>
+    <p><%= book.notes %></p>
+    <hr>
+    <form>
+        <input type="submit" value="Edit" formaction="/book/<%= book.isbn %>/edit"/>
+    </form>
+
+<% } else { %>
+    <h2>No book was found! :(</h2>
+<% } %>
 
 <%- include('partials/footer.ejs') %>
