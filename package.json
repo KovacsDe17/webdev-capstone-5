@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^1.6.8",
+    "bootstrap-icons": "^1.11.3",
     "ejs": "^3.1.9",
     "express": "^4.19.2",
     "pg": "^8.11.5"
@@ -10,7 +11,6 @@
   "description": "This is a capstone project for the Udemy Complete 2024 Web Development Bootcamp. It's purpose is to show what i have learned so far. The project uses Express.js, EJS, Axios, SQL and Bootstrap.",
   "main": "index.js",
   "type": "module",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

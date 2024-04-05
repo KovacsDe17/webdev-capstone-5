@@ -1,7 +1,5 @@
 <%- include('partials/header.ejs') %>
 
-<a href="/addreview">Add book review</a>
-
 <div id="booklist">
     <% if(locals.bookreviews && bookreviews.length > 0){ %>
         <% bookreviews.forEach(book => { %>
@@ -14,5 +12,28 @@
         <h2>No book reviews so far... :(</h2>
     <% } %>
 </div>
+
+<div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis">The Courage to Be Disliked - by Ichiro Kishimi and Fumitake Koga</h1>
+        <p class="lead mb-1">Wow. A profound little philosophy book from Japan, communicating the psychology of Alfred Adler - a rival of Freud. Told as a conversation between an angry student and a patient teacher. A little book so good that I rushed home from other activities to keep reading it, and finished in a day. A surprisingly fresh perspective on how to live. (The “disliked” part is not the point, so don’t let the title distract you.)</p>
+        <div class="stars d-flex justify-content-start align-items-center my-1">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-half"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+        </div>
+        <p class="lead">Read date: 2016-05-12</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+          <a href="/book/1501197274"><button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">See Review</button></a>
+        </div>
+      </div>
+      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+          <img class="rounded-lg-3" src="https://covers.openlibrary.org/b/isbn/1501197274-L.jpg" alt="Book cover" width="360">
+      </div>
+    </div>
+  </div>
 
 <%- include('partials/footer.ejs') %>
