@@ -1,22 +1,55 @@
 <%- include('partials/header.ejs') %>
 
-<form method="post">
-    <label for="isbn">ISBN</label>
-    <input name="isbn" type="text" maxlength="15" required value="<%= locals.book?book.isbn:"" %>" <%= locals.book?"disabled":"" %>/><br><br>
-    <label for="title">Title</label>
-    <input name="title" type="text" required  value="<%= locals.book?book.title:"" %>"/><br><br>
-    <label for="author">Author</label>
-    <input name="author" type="text" required  value="<%= locals.book?book.author:"" %>"/><br><br>
-    <label for="description">Description</label>
-    <textarea name="description" rows="15" cols="50" required><%= locals.book?book.description:"" %></textarea><br><br>
-    <label for="read_date">Read date</label>
-    <input name="read_date" type="date" required  value="<%= locals.book?book.read_date:"" %>"/><br><br>
-    <label for="notes">Notes</label>
-    <textarea name="notes" rows="15" cols="50" required><%= locals.book?book.notes:"" %></textarea><br><br>
-    <label for="rating">Rating</label>
-    <input name="rating" type="number" min="1" max="10" required value="<%= locals.book?book.rating:"10" %>"/><br><br>
-    <input name="action" value="<%= locals.book?"edit":"add" %>" hidden/>
-    <input type="submit" value="<%= locals.book?"Edit":"Add" %> book" formaction="<%= locals.book?("/edit/" + book.isbn):"/add" %>"/>
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <form method="post">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label for="isbn" class="form-label">ISBN</label>
+                            <input name="isbn" type="text" class="form-control" maxlength="15" required value="<%= locals.book?book.isbn:"" %>" <%= locals.book?"disabled":"" %>/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input name="title" type="text" class="form-control" required  value="<%= locals.book?book.title:"" %>"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="author" class="form-label">Author</label>
+                            <input name="author" type="text" class="form-control" required  value="<%= locals.book?book.author:"" %>"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="read_date" class="form-label">Read date</label>
+                            <input name="read_date" type="date" class="form-control" required value="<%= locals.book?book.read_date:"" %>"/>
+                        </div>
+                        <div class="mb-3" hidden>
+                            <label for="rating" class="form-label">Rating</label>
+                            <input name="rating" type="number" class="form-control" min="1" max="10" required value="<%= locals.book?book.rating:"10" %>"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <input id="ratingHolder" name="rating" type="number" class="form-control" min="1" max="10" required value="<%= locals.book?book.rating:"10" %>" hidden/>
+                            <div id="rateYo"></div>
+                        </div>
+                        <div class="mb-3">
+                            <input name="action" value="<%= locals.book?"edit":"add" %>" hidden/>
+                            <input type="submit" class="btn btn-primary form-control" value="<%= locals.book?"Edit":"Add" %> book" formaction="<%= locals.book?("/edit/" + book.isbn):"/add" %>"/>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea name="description" rows="6" cols="50" class="form-control" required><%= locals.book?book.description:"" %></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes</label>
+                            <textarea name="notes" rows="8" cols="50" class="form-control" required><%= locals.book?book.notes:"" %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <%- include('partials/footer.ejs') %>

@@ -1,39 +1,52 @@
 <%- include('partials/header.ejs') %>
 
-<div id="booklist">
+<%
+function showStars(rating){
+        if(rating < 1) rating = 1;
+        if(rating > 10) rating = 10;
+
+        const fillString = '<i class="bi bi-star-fill"></i>\n';
+        const halfString = '<i class="bi bi-star-half"></i>\n';
+        const emptyString = '<i class="bi bi-star"></i>\n';
+
+        let fill = Math.floor(rating/2);
+        let half = ((rating/2)-fill) > 0 ? 1 : 0;
+        let empty = 5 - (fill+half);
+
+        return fillString.repeat(fill) + halfString.repeat(half) + emptyString.repeat(empty);
+    }
+
+function truncateLongText(text){
+    if(text.length > 200){
+        return text.slice(0,200) + "...";
+    } else {
+        return text;
+    }
+}
+%>
+
+<div class="container my-5">
     <% if(locals.bookreviews && bookreviews.length > 0){ %>
         <% bookreviews.forEach(book => { %>
-            <a href="/book/<%= book.isbn %>"><h3><%= book.title %> - by <%= book.author %></h3></a>
-            <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg"/>
-            <p>Date read: <%= book.read_date %></p>
-            <p>Rating: <%= book.rating %>/10</p>
+            <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 mb-5 align-items-center rounded-3 border shadow-lg">
+            <div class="col-lg-9 p-3 p-lg-3 pt-lg-3">
+                <h2 class="fw-bold lh-1 text-body-emphasis"><%= book.title %> - by <%= book.author %></h2>
+                <p class="lead mb-1"><%= truncateLongText(book.description) %></p>
+                <div class="stars d-flex justify-content-start align-items-center mt-1">
+                    <p><%- showStars(book.rating) %></p>
+                </div>
+                <p class="lead">Read date: <%= book.read_date %></p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                <a href="/book/<%= book.isbn %>"><button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">See Review</button></a>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 p-0 overflow-hidden shadow-lg">
+                <img class="rounded-lg-3 bookcover" src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg?default=false" onerror="this.onerror = ''; this.src='/images/No-Cover-Image.png'" alt="Book cover" width="180">
+            </div>
+            </div>
         <%  }); %>
     <% } else { %>
         <h2>No book reviews so far... :(</h2>
     <% } %>
-</div>
-
-<div class="container my-5">
-    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-        <h1 class="display-4 fw-bold lh-1 text-body-emphasis">The Courage to Be Disliked - by Ichiro Kishimi and Fumitake Koga</h1>
-        <p class="lead mb-1">Wow. A profound little philosophy book from Japan, communicating the psychology of Alfred Adler - a rival of Freud. Told as a conversation between an angry student and a patient teacher. A little book so good that I rushed home from other activities to keep reading it, and finished in a day. A surprisingly fresh perspective on how to live. (The “disliked” part is not the point, so don’t let the title distract you.)</p>
-        <div class="stars d-flex justify-content-start align-items-center my-1">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-half"></i>
-            <i class="bi bi-star"></i>
-            <i class="bi bi-star"></i>
-        </div>
-        <p class="lead">Read date: 2016-05-12</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-          <a href="/book/1501197274"><button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">See Review</button></a>
-        </div>
-      </div>
-      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-          <img class="rounded-lg-3" src="https://covers.openlibrary.org/b/isbn/1501197274-L.jpg" alt="Book cover" width="360">
-      </div>
-    </div>
   </div>
-
 <%- include('partials/footer.ejs') %>

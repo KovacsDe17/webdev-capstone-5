@@ -1,4 +1,10 @@
 .stars{
     color: orange;
-    font-size: xx-large;
+    font-size: x-large;
+    line-height: 1rem;
+}
+
+.longtext{
+    white-space: pre-wrap;
+    text-align: justify;
 }

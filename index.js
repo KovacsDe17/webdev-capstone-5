@@ -1,3 +1,4 @@
+import axios from "axios";
 import express from "express";
 import bodyParser from "express";
 import pg from "pg";
@@ -110,9 +111,10 @@ async function loadAllReviews(orderby="title", asc = true){
 }
 
 async function addReview(review){
+    
     try {
         const result = await db.query("INSERT INTO bookreviews (isbn, title, author, description, read_date, notes, rating) VALUES ($1, $2, $3, $4, $5, $6, $7);",
-            [review.isbn, review.title, review.author, review.description, review.read_date, review.notes, review.rating]);
+            [review.isbn, review.title, review.author, review.description, review.read_date, review.notes, review.rating[1]]);
     } catch (error) {
         console.error("Error executing query! ", error.stack);
     }
@@ -121,7 +123,7 @@ async function addReview(review){
 async function updateReview(review){
     try {
         const result = await db.query("UPDATE bookreviews SET title=$1, author=$2, description=$3, read_date=$4, notes=$5, rating=$6 WHERE isbn = $7;",
-            [review.title, review.author, review.description, review.read_date, review.notes, review.rating, review.isbn]);
+            [review.title, review.author, review.description, review.read_date, review.notes, review.rating[1], review.isbn]);
         console.log("Updated review! " + result.rows);
     } catch (error) {
         console.error("Error executing query! ", error.stack);

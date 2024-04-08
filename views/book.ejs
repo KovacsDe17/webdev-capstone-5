@@ -1,24 +1,71 @@
 <%- include('partials/header.ejs') %>
 
-<% if(locals.book && book != undefined){ %>
+<%
+function showStars(rating){
+        if(rating < 1) rating = 1;
+        if(rating > 10) rating = 10;
 
-    <h2><%= book.title %> - by <%= book.author %></h2>
-    <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg"/>
-    <p><%= book.description%></p>
-    <hr>
-    <p>Rating: <%= book.rating %>/10</p>
-    <p>Read date: <%= book.read_date %></p>
-    <hr>
-    <h3>Notes</h3>
-    <p><%= book.notes %></p>
-    <hr>
-    <form>
-        <input type="submit" value="Edit" formaction="/book/<%= book.isbn %>/edit" formmethod="get"/>
-        <input type="submit" value="Delete" formaction="/delete/<%= book.isbn %>" formmethod="post"/>
-    </form>
+        const fillString = '<i class="bi bi-star-fill"></i>\n';
+        const halfString = '<i class="bi bi-star-half"></i>\n';
+        const emptyString = '<i class="bi bi-star"></i>\n';
 
-<% } else { %>
-    <h2>No book was found! :(</h2>
-<% } %>
+        let fill = Math.floor(rating/2);
+        let half = ((rating/2)-fill) > 0 ? 1 : 0;
+        let empty = 5 - (fill+half);
+
+        return fillString.repeat(fill) + halfString.repeat(half) + emptyString.repeat(empty);
+    }
+%>
+
+<main class="container">
+    <% if(locals.book && book != undefined){ %>
+    <div class="row g-5">
+      <div class="col-md-12">
+        <article class="blog-post">
+            <div class="row">
+                <div class="col-2">
+                    <img class="rounded-lg-3 bookcover mb-3" src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg?default=false" onerror="this.onerror = ''; this.src='/images/No-Cover-Image.png'" alt="Book cover" width="180">
+                </div>
+                <div class="col-10">
+                    <h2 class="display-5 link-body-emphasis mb-0"><%= book.title %></h2>
+                    <h2 class="display-5 link-body-emphasis mb-4"> by <%= book.author %></h2>
+                    <p class="blog-post-meta mb-3">Read date: <%= book.read_date%></p>
+                    <p class="blog-post-meta stars"><%- showStars(book.rating) %></p>
+                </div>
+                <hr>
+                <h2>Description</h2>
+                <p class="longtext"><%= book.description%></p>
+            </div>
+            <hr>
+            <h2>Notes</h2>
+            <p class="longtext"><%= book.notes %></p>
+            <a href="/book/<%= book.isbn %>/edit" class="btn btn-primary">Edit</a>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+        </article>  
+      </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete review</h5>
+            </div>
+            <div class="modal-body">
+              Are you sure, you want to delete this review?
+            </div>
+            <div class="modal-footer">
+                <form method="post" action="/delete/<%= book.isbn %>">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } else { %>
+        <h2>Book not found! :(</h2>
+    <% } %>
+  </main>
 
 <%- include('partials/footer.ejs') %>
